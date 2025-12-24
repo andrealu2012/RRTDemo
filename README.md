@@ -1,5 +1,5 @@
 # RRT算法演示
-![alt text](image.png)
+![alt text](/image/image-1.png)
 一个用于学习和对比多种RRT（Rapidly-exploring Random Tree）路径规划算法的交互式可视化工具。
 
 ## 项目简介
