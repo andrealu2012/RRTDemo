@@ -9,8 +9,8 @@ from rrt_connect import RRTConnect
 class RRTConnectShortcut(RRTConnect):
     """RRT-Connect + Path Shortcutting算法实现"""
 
-    def __init__(self, start, goal, obstacles, bounds, step_size=0.5, max_iter=1000):
-        super().__init__(start, goal, obstacles, bounds, step_size, max_iter)
+    def __init__(self, start, goal, obstacles, bounds, step_size=0.5, max_iter=1000, random_seed=None):
+        super().__init__(start, goal, obstacles, bounds, step_size, max_iter, random_seed)
 
     def is_direct_connection_free(self, point1, point2):
         x1, y1 = point1
@@ -78,6 +78,7 @@ class RRTConnectShortcut(RRTConnect):
         if path is None:
             return None
         print(f"\nRRT-Connect找到路径: {len(path)}个点")
+        print(f"树节点总数: {len(self.nodes)}个")
         print("\n第2步: 路径快捷优化...")
         optimized_path = self.path_shortcutting(path)
         return optimized_path

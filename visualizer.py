@@ -53,7 +53,7 @@ class InteractiveVisualizer:
         self.rrt_connect_shortcut_time = rrt_connect_shortcut_time
 
         # 障碍物数量范围
-        self.min_obstacles = 4
+        self.min_obstacles = 5
         self.max_obstacles = 8
 
         self.current_algorithm = 'rrt'
@@ -187,7 +187,7 @@ class InteractiveVisualizer:
         self.ax.set_ylim(algorithm.bounds[2], algorithm.bounds[3])
         self.ax.set_aspect('equal')
         self.ax.grid(True, alpha=0.3)
-        self.ax.legend(loc='upper right')
+        self.ax.legend(loc='lower right')
         self.ax.set_title(title, fontsize=16, fontweight='bold')
         self.ax.set_xlabel('X')
         self.ax.set_ylabel('Y')
@@ -389,7 +389,7 @@ def main():
 
     print("\n[3/5] 运行RRT-Connect算法...")
     start_time = time.time()
-    rrt_connect = RRTConnect(start, goal, obstacles, bounds, step_size=0.5, max_iter=2000)
+    rrt_connect = RRTConnect(start, goal, obstacles, bounds, step_size=0.5, max_iter=2000, random_seed=42)
     rrt_connect_path = rrt_connect.plan()
     rrt_connect_time = time.time() - start_time
     rrt_connect_length = None
@@ -419,7 +419,7 @@ def main():
 
     print("\n[5/5] 运行RRT-Connect + Path Shortcutting算法...")
     start_time = time.time()
-    rrt_connect_shortcut = RRTConnectShortcut(start, goal, obstacles, bounds, step_size=0.5, max_iter=2000)
+    rrt_connect_shortcut = RRTConnectShortcut(start, goal, obstacles, bounds, step_size=0.5, max_iter=2000, random_seed=42)
     rrt_connect_shortcut_path = rrt_connect_shortcut.plan()
     rrt_connect_shortcut_time = time.time() - start_time
     rrt_connect_shortcut_length = None

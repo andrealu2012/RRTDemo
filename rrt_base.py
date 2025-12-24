@@ -20,7 +20,7 @@ class Node:
 class RRT:
     """RRT算法实现"""
 
-    def __init__(self, start, goal, obstacles, bounds, step_size=0.5, max_iter=1000):
+    def __init__(self, start, goal, obstacles, bounds, step_size=0.5, max_iter=1000, random_seed=None):
         self.start = Node(start[0], start[1])
         self.goal = Node(goal[0], goal[1])
         self.obstacles = obstacles
@@ -29,6 +29,7 @@ class RRT:
         self.max_iter = max_iter
         self.goal_threshold = 0.5
         self.nodes = [self.start]
+        self.random_seed = random_seed
 
     def random_sample(self):
         if np.random.random() < 0.1:

@@ -9,8 +9,8 @@ from rrt_base import Node, RRT
 class RRTConnect(RRT):
     """RRT-Connect算法实现 - 双向RRT"""
 
-    def __init__(self, start, goal, obstacles, bounds, step_size=0.5, max_iter=1000):
-        super().__init__(start, goal, obstacles, bounds, step_size, max_iter)
+    def __init__(self, start, goal, obstacles, bounds, step_size=0.5, max_iter=1000, random_seed=None):
+        super().__init__(start, goal, obstacles, bounds, step_size, max_iter, random_seed)
         self.start_tree = [self.start]
         self.goal_tree = [Node(goal[0], goal[1])]
         self.connect_node_start = None
@@ -69,6 +69,9 @@ class RRTConnect(RRT):
         return path_start + path_goal
 
     def plan(self):
+        if self.random_seed is not None:
+            np.random.seed(self.random_seed)
+            print(f"设置随机种子: {self.random_seed}")
         print("开始RRT-Connect路径规划...")
         for i in range(self.max_iter):
             rand_x, rand_y = self.random_sample()
@@ -84,6 +87,7 @@ class RRTConnect(RRT):
                     self.connect_node_start = new_node_start
                     self.connect_node_goal = connect_node
                     self.nodes = self.start_tree + self.goal_tree
+                    print(f"树节点总数: {len(self.nodes)}个 (起始树: {len(self.start_tree)}, 目标树: {len(self.goal_tree)})")
                     return self.extract_dual_path()
             self.start_tree, self.goal_tree = self.goal_tree, self.start_tree
             if (i + 1) % 100 == 0:
